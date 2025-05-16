@@ -7,6 +7,7 @@ import pandas as pd
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 
+
 # Dữ liệu về mã CV
 CV_CODES = [
     "CV01 - KHÁNH", "CV02 - X.Thủy", "CV03 - Ngọc Anh", "CV04 - Nhật Linh",
