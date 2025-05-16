@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Customer Details - {{ customer.name }}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #4b382a; /* nâu đất ấm */
+            color: #f0e6d2; /* vàng nhạt dịu mắt */
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: #6b5540cc; /* nâu nhạt trong suốt */
+            border-radius: 18px;
+            padding: 30px;
+            box-shadow: 0 0 30px #9c836733; /* bóng nhẹ nâu */
+        }
+        .header-title {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #d9c7a0;
+            text-shadow: 0 0 8px #b4955f;
+            margin-bottom: 28px;
+            letter-spacing: 1.2px;
+        }
+        .card {
+            background-color: #856c4d;
+            border-radius: 18px;
+            box-shadow: 0 0 25px #b79c6ccc;
+            margin-bottom: 20px;
+            padding: 25px 30px;
+            color: #f3e8ca;
+        }
+        .form-group label {
+            font-weight: 700;
+            color: #dbcfa5;
+            margin-bottom: 8px;
+            text-shadow: 0 0 6px #cdbb8a99;
+        }
+        .info-field {
+            font-size: 1.1rem;
+            background-color: #a08867;
+            border: 1px solid #ac9a77;
+            padding: 12px 15px;
+            border-radius: 14px;
+            color: #f3e8ca;
+            box-shadow: inset 0 0 12px #c5b286aa;
+        }
+        .btn-custom, .btn-warning, .btn-danger, .btn-secondary {
+            border-radius: 18px;
+            padding: 12px 30px;
+            font-weight: 700;
+            box-shadow: 0 0 18px #c9b67dcc;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .btn-warning {
+            background-color: #b7994d;
+            color: #fff9d4;
+            border: none;
+            box-shadow: 0 0 16px #d5ba5ecc;
+        }
+        .btn-warning:hover {
+            background-color: #d7b85c;
+            color: #5c4800;
+            box-shadow: 0 0 22px #d7b85cdd;
+        }
+        .btn-danger {
+            background-color: #a04132;
+            color: #f8e6e2;
+            border: none;
+            box-shadow: 0 0 14px #bf685ccc;
+        }
+        .btn-danger:hover {
+            background-color: #c75646;
+            color: #511b12;
+            box-shadow: 0 0 18px #c96559ff;
+        }
+        .btn-secondary {
+            background-color: #7c6f5a;
+            color: #e6dfc9;
+            border: none;
+            box-shadow: 0 0 14px #a49d80cc;
+        }
+        .btn-secondary:hover {
+            background-color: #9f9371;
+            color: #3c3a2c;
+            box-shadow: 0 0 18px #a89e7eff;
+        }
+        .btn-group {
+            margin-top: 25px;
+        }
+        ul {
+            padding-left: 20px;
+            margin-bottom: 0;
+        }
+        li {
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #dbcaa1;
+            text-shadow: 0 0 3px #bbab7a99;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="header-title">Customer Details - <strong>{{ customer.name }}</strong></h1>
+
+        <div class="card info-card">
+            <h4>Thông Tin Khách Hàng</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group"><label>Họ Tên</label><div class="info-field">{{ customer.name }}</div></div>
+                    <div class="form-group"><label>SĐT</label><div class="info-field">{{ customer.phone }}</div></div>
+                    <div class="form-group"><label>Địa Chỉ</label><div class="info-field">{{ customer.address }}</div></div>
+                    <div class="form-group"><label>Ngày Sinh</label><div class="info-field">{{ customer.dob }}</div></div>
+                    <div class="form-group"><label>Tình Trạng</label><div class="info-field">{{ customer.status }}</div></div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group"><label>Mã NV, CCCD</label><div class="info-field">{{ customer.cccd }}</div></div>
+                    <div class="form-group"><label>Gắn Mã CV</label><div class="info-field">{{ customer.role }}</div></div>
+                    <div class="form-group"><label>CT Áp Dụng</label><div class="info-field">{{ customer.program }}</div></div>
+                    <div class="form-group"><label>Ghi Chú</label><div class="info-field">{{ customer.notes }}</div></div>
+                    <div class="form-group"><label>Ngày Nhập</label><div class="info-field">{{ customer.date_added }}</div></div>
+                </div>
+            </div>
+
+            <h4>Thông Tin Điều Trị</h4>
+            <div class="form-group">
+                <label>Lộ Trình Chữa Bệnh</label>
+                <ul>
+                    {% if customer.treatment_plans %}
+                        {% for plan in customer.treatment_plans.split(',') %}
+                            <li>{{ plan }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Chưa có thông tin</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label>Lịch Đặt Hẹn</label>
+                <ul>
+                    {% if customer.appointment_schedules %}
+                        {% for appt in customer.appointment_schedules.split(',') %}
+                            <li>{{ appt }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Chưa có thông tin</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="form-group">
+                <label>Doanh Thu</label>
+                <ul>
+                    {% if customer.revenues %}
+                        {% for rev in customer.revenues.split(',') %}
+                            <li>{{ rev }}</li>
+                        {% endfor %}
+                    {% else %}
+                        <li>Chưa có thông tin</li>
+                    {% endif %}
+                </ul>
+            </div>
+
+            <div class="btn-group">
+                <a href="{{ url_for('edit_customer', customer_id=customer.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('delete_customer', customer_id=customer.id) }}" class="btn btn-danger btn-sm">Delete</a>
+                <a href="{{ url_for('home') }}" class="btn btn-secondary btn-sm">Back to Customer List</a>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
